@@ -15,26 +15,43 @@ db = SQLAlchemy()
 class Model(db.Model):
 
     __tablename__ = "models"
+
+    #Can't figure out how to add a foreign key
     
-    model_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    brand_id = db.Column(db.Integer, db.ForeignKey('brands.brand_id'), nullable=False)
+    id = db.Column(db.Integer, 
+                db.ForeignKey('brands.id'),
+                primary_key=True, 
+                autoincrement=True)
     year = db.Column(db.Integer, nullable=False)
-    brand_name = db.Column(db.String(50), nullable=False)
+    brand_name = db.Column(db.String(50))
     name = db.Column(db.String(50), nullable=False)
 
-    
+    # brand_id = db.Column(db.Integer, db.ForeignKey('brands.brand_id'), nullable=False)
+    same_brand = db.relationship("Brand", backref="models")
 
-    same_brand = db.relationship("Model", backref="brands")
+    def __repr__(self):
+        """Provide helpful representation when printed."""
+
+        return "<id=%d brand_name=%s name=%s>" % (self.id, self.brand_name, self.name)
+
+
+
 
 class Brand(db.Model):
 
     __tablename__ = "brands"
     
-    brand_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    brand = db.Column(db.String(50), nullable=False)
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    name = db.Column(db.String(50), nullable=False)
     founded = db.Column(db.Integer)
     headquarters = db.Column(db.String(50))
     discontinued = db.Column(db.Integer)
+
+    def __repr__(self):
+        """Provide helpful representation when printed."""
+
+        return "<id=%d name=%s headquarters=%s>" % (self.id, self.name, self.headquarters)
+
 
 
 # End Part 1

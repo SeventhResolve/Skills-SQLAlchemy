@@ -23,13 +23,24 @@ init_app()
 
 # Get the brand with the **id** of 8.
 
+Brand.query.get(8)
+
 # Get all models with the **name** Corvette and the **brand_name** Chevrolet.
+
+Model.query.filter(Model.name=='Corvette', Model.brand_name=='Chevrolet').all()
 
 # Get all models that are older than 1960.
 
+Model.query.filter(Model.year > 1960).all()
+
 # Get all brands that were founded after 1920.
 
+Brand.query.filter(Brand.founded > 1920).all()
+
 # Get all models with names that begin with "Cor".
+
+(SQL command would be SELECT * FROM models WHERE name LIKE 'Cor%';)
+Model.query.filter(Model.name=='Cor%').all()
 
 # Get all brands with that were founded in 1903 and that are not yet discontinued.
 
@@ -43,7 +54,12 @@ def get_model_info(year):
     '''Takes in a year, and prints out each model, brand_name, and brand
     headquarters for that year using only ONE database query.'''
 
-    pass
+    model = Model.query.filter(Model.year==year).all()
+    #Takes in a year, puts it into a variable, then queries for the models
+    #in that year
+    brand_name = 
+    brand_headquarters = 
+    
 
 def get_brands_summary():
     '''Prints out each brand name, and each model name for that brand
